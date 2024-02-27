@@ -13,7 +13,7 @@ const ResetPasswordForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://magnolias-api.vercel.app/v1/users/password-reset/${token}`,
+        `https://api-magnolias.vercel.app/v1/users/password-reset/${token}`,
         {
           password,
         }
