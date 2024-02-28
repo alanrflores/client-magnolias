@@ -18,13 +18,13 @@ const handleResponse = (response: any) => {
   const { existingSchedule, newSchedule } = response.data.user;
   if (existingSchedule) {
     // Usuario ya tiene una entrada para el día actual
-    console.log("Detalles del usuario:", user);
-    console.log("Detalles del horario existente:", existingSchedule);
+    // console.log("Detalles del usuario:", user);
+    // console.log("Detalles del horario existente:", existingSchedule);
     // Mostrar detalles en tu interfaz de usuario
   } else {
-    // Nuevo horario creado
-    console.log("Detalles del usuario:", user);
-    console.log("Detalles del nuevo horario:", newSchedule);
+    // // Nuevo horario creado
+    // console.log("Detalles del usuario:", user);
+    // console.log("Detalles del nuevo horario:", newSchedule);
     // Mostrar detalles en tu interfaz de usuario
   }
 };
@@ -50,9 +50,13 @@ const Qrcodex = ({
             (response.data.existingSchedule || response.data.newSchedule)
           ) {
             handleResponse(response);
+            toast.success("¡Registro exitoso!", {
+              id: "success",
+              duration: 2000,
+            });
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => toast.error(error.response.data));
 
       setScanResult(data);
       setIsChangeText(true);

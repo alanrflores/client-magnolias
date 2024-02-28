@@ -11,7 +11,7 @@ const code = () => {
   const router = useRouter();
   const [userId, setUserId] = useLocalStorage("token", null);
   const value = "http://localhost:3000/v1/schedules";
-  const baseUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/v1/schedules`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL_LOCAL}/v1/schedules`;
 
   const { data: userById, refetch: refetchUser ,isLoading, isError } = useQuery(
     ["user", userId],

@@ -194,7 +194,7 @@ export default function Home() {
                     events={events}
                     style={{
                       width: 350,
-                      height: 500,
+                      height: 400,
                       margin: "auto",
                       marginTop: 50,
                       marginBottom: 50,
