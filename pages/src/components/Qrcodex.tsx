@@ -73,7 +73,7 @@ const Qrcodex = ({
         <QrReader
           delay={100}
           onError={handleError}
-          onScan={() => handleScan(scanResult)}
+          onScan={handleScan}
           constraints={{
             audio: false,
             video: { facingMode: "environment" },
