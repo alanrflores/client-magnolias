@@ -17,15 +17,9 @@ interface QrcodexProps {
 const handleResponse = (response: any) => {
   const { existingSchedule, newSchedule } = response.data.user;
   if (existingSchedule) {
-    toast.success("¡Registro de salida exitoso!", {
-      id: "success",
-      duration: 2000,
-    });
+     console.log("¡Registro de salida exitoso!");
   } else {
-    toast.success("¡Registro de entrada exitoso!", {
-      id: "success",
-      duration: 2000,
-    });
+      console.log("¡Registro de entrada exitoso!");
   }
 };
 
@@ -35,11 +29,13 @@ const Qrcodex = ({
   isChangeText,
   setIsChangeText,
 }: QrcodexProps) => {
-  const [scanResult, setScanResult] = useState(null);
+  const [scanResult, setScanResult] = useState({
+    delay: 300,
+    result: "No result",
+  });
   const [loadToaster, setLoadToaster] = useState(false);
 
   const handleScan = async (data: any) => {
-    console.log("Data:", data && data);
     if (data) {
       axios
         .post(data.text, { userId })
@@ -49,11 +45,12 @@ const Qrcodex = ({
             (response.data.existingSchedule || response.data.newSchedule)
           ) {
             handleResponse(response);
+            
           }
         })
         .catch((error) => toast.error(error.response.data));
 
-      setScanResult(data);
+      setScanResult({result: data.text, delay: 300});
       setIsChangeText(true);
       toggleScanner();
     }
@@ -67,6 +64,7 @@ const Qrcodex = ({
     return null;
   }
 
+  console.log(scanResult)
   return (
     <>
       {typeof window !== "undefined" && (
