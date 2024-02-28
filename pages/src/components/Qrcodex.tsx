@@ -17,15 +17,15 @@ interface QrcodexProps {
 const handleResponse = (response: any) => {
   const { existingSchedule, newSchedule } = response.data.user;
   if (existingSchedule) {
-    // Usuario ya tiene una entrada para el día actual
-    // console.log("Detalles del usuario:", user);
-    // console.log("Detalles del horario existente:", existingSchedule);
-    // Mostrar detalles en tu interfaz de usuario
+    toast.success("¡Registro de salida exitoso!", {
+      id: "success",
+      duration: 2000,
+    });
   } else {
-    // // Nuevo horario creado
-    // console.log("Detalles del usuario:", user);
-    // console.log("Detalles del nuevo horario:", newSchedule);
-    // Mostrar detalles en tu interfaz de usuario
+    toast.success("¡Registro de entrada exitoso!", {
+      id: "success",
+      duration: 2000,
+    });
   }
 };
 
@@ -38,9 +38,8 @@ const Qrcodex = ({
   const [scanResult, setScanResult] = useState(null);
   const [loadToaster, setLoadToaster] = useState(false);
 
- 
-  
   const handleScan = async (data: any) => {
+    console.log("Data:", data && data);
     if (data) {
       axios
         .post(data.text, { userId })
@@ -50,10 +49,6 @@ const Qrcodex = ({
             (response.data.existingSchedule || response.data.newSchedule)
           ) {
             handleResponse(response);
-            toast.success("¡Registro exitoso!", {
-              id: "success",
-              duration: 2000,
-            });
           }
         })
         .catch((error) => toast.error(error.response.data));
@@ -68,18 +63,17 @@ const Qrcodex = ({
     console.error(err);
   };
 
-  // Verificar si userId es null antes de renderizar el componente
   if (userId === null) {
     return null;
   }
 
   return (
     <>
-      {typeof window !== 'undefined' && (
+      {typeof window !== "undefined" && (
         <QrReader
           delay={100}
           onError={handleError}
-          onScan={handleScan}
+          onScan={() => handleScan(scanResult)}
           constraints={{
             audio: false,
             video: { facingMode: "environment" },

@@ -49,10 +49,13 @@ export default function Home() {
   const eventsMap =
     fetchUser && fetchUser?.data?.map((user: any) => user.schedule);
 
+  const userRoleIsNotAdmin = isNotAdmin?.find(
+    (user: any) => user.role !== "ADMIN"
+  );
   const events = [
     {
       title:
-        fetchUser && fetchUser?.data?.length > 0
+        fetchUser && fetchUser?.data?.length > 0 && userRoleIsNotAdmin
           ? "Horarios registrados"
           : "No hay horarios registrados",
       start: moment(eventsMap?.[0]?.entryTime).toDate(),
@@ -65,13 +68,17 @@ export default function Home() {
       return (
         <Tooltip
           key={"primary"}
-          color={"primary"}
+          color={
+            fetchUser && fetchUser?.data?.length > 0 && userRoleIsNotAdmin
+              ? "success"
+              : "warning"
+          }
           content={props.event.title}
-          className="capitalize"
+          className=""
         >
-          <button onClick={onOpen}>
+          <button onClick={onOpen} className="flex flex-col">
             <CiCalendarDate size="14px" />
-            <span className="text-sm">{props.event.title}</span>
+            <span className="text-xs">{props.event.title}</span>
           </button>
         </Tooltip>
       );
@@ -93,14 +100,14 @@ export default function Home() {
         <span className="text-white font-semibold">Cargando...</span>
       </div>
     );
-    
-    if (isError) {
-      return (
-        <div className="flex justify-center items-center h-screen bg-gray-800">
-          <span className="text-white font-semibold">Error...</span>
-        </div>
-      );
-    }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-800">
+        <span className="text-white font-semibold">Error...</span>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -194,7 +201,7 @@ export default function Home() {
                     events={events}
                     style={{
                       width: 350,
-                      height: 400,
+                      height: 420,
                       margin: "auto",
                       marginTop: 50,
                       marginBottom: 50,
@@ -213,7 +220,7 @@ export default function Home() {
               </div>
 
               <Modal
-                size="md"
+                size="sm"
                 backdrop={"blur"}
                 isOpen={isOpen}
                 placement="center"
@@ -229,11 +236,18 @@ export default function Home() {
                           <h2 className="text-semibold text-white">Lista</h2>
                         </ModalHeader>
                         <ModalBody>
-                          <FullCard users={isNotAdmin} />
+                          {userRoleIsNotAdmin ? (
+                            <FullCard users={isNotAdmin} />
+                          ) : (
+                            <h1 className="text-white">
+                              No hay usuarios registrados
+                            </h1>
+                          )}
                         </ModalBody>
                         <ModalFooter>
                           <Button
-                            className="bg-red-600"
+                            className="bg-red-500"
+                            size="sm"
                             variant="light"
                             onPress={onClose}
                           >
