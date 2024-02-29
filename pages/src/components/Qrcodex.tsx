@@ -1,11 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { LocalStorageState } from "../../../services/hooks/useLocalStorage";
 import QrReader from "react-qr-scanner";
-import { mutationFn } from "../../../services/queries/Queries";
-import { useMutation } from "react-query";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { user } from "@nextui-org/react";
 
 interface QrcodexProps {
   userId: LocalStorageState;
@@ -17,9 +14,9 @@ interface QrcodexProps {
 const handleResponse = (response: any) => {
   const { existingSchedule, newSchedule } = response.data.user;
   if (existingSchedule) {
-     console.log("¡Registro de salida exitoso!");
+    console.log("¡Registro de salida exitoso!");
   } else {
-      console.log("¡Registro de entrada exitoso!");
+    console.log("¡Registro de entrada exitoso!");
   }
 };
 
@@ -45,12 +42,11 @@ const Qrcodex = ({
             (response.data.existingSchedule || response.data.newSchedule)
           ) {
             handleResponse(response);
-            
           }
         })
         .catch((error) => toast.error(error.response.data));
 
-      setScanResult({result: data.text, delay: 300});
+      setScanResult({ result: data.text, delay: 300 });
       setIsChangeText(true);
       toggleScanner();
     }
@@ -64,7 +60,6 @@ const Qrcodex = ({
     return null;
   }
 
-  console.log(scanResult)
   return (
     <>
       {typeof window !== "undefined" && (

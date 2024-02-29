@@ -18,6 +18,7 @@ import {
   Tooltip,
   useDisclosure,
   Modal,
+  
   ModalContent,
   ModalHeader,
   ModalBody,
@@ -98,7 +99,7 @@ const listId = () => {
             Detalles del usuario
           </h1>
           <button
-            className="inline-flex h-7 w-auto px-1 py-0.5 font-sans
+            className="inline-flex h-7 w-auto px-2 py-0.5 font-sans
             animate-background-shine items-center 
             justify-center 
             rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] 
@@ -121,7 +122,7 @@ const listId = () => {
           <TableBody className="flex justify-center items-center">
             <TableRow key="1">
               <TableCell className="align-top text-white">
-                {userDetails?.data?.email}
+                <span className="w-10 text-sm">{userDetails?.data?.email}</span>
               </TableCell>
               <TableCell className="">
                 {userDetails?.data?.schedule
@@ -131,7 +132,7 @@ const listId = () => {
                       new Date(a.entryTime).getTime()
                   )
                   .map((schedule: any, index: number) => (
-                    <div key={index} className="w-22">
+                    <div key={index} className="w-6">
                       <div className="flex flex-col">
                         <p className="text-sm font-semibold text-white">
                           Entrada:{" "}
@@ -159,7 +160,7 @@ const listId = () => {
                 {userDetails?.data?.schedule?.map(
                   (schedule: any, index: number) => (
                     <>
-                      <div className="relative mt-4 flex" key={index}>
+                      <div className="relative mt-4 flex w-10" key={index}>
                         <Tooltip content="Editar horarios">
                           <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                             <FaRegEdit
