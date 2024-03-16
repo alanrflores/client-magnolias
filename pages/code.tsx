@@ -59,7 +59,7 @@ const code = () => {
           </h1>
 
           <div className="mt-28">
-            <QRCode size={230} value={value} />
+            <QRCode size={230} value={!userById ? value : baseUrl} />
           </div>
         </div>
       )}
