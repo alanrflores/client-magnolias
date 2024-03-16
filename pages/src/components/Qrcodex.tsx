@@ -1,11 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { LocalStorageState } from "../../../services/hooks/useLocalStorage";
 import QrReader from "react-qr-scanner";
-import { mutationFn } from "../../../services/queries/Queries";
-import { useMutation } from "react-query";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { user } from "@nextui-org/react";
 
 interface QrcodexProps {
   userId: LocalStorageState;
@@ -17,15 +14,9 @@ interface QrcodexProps {
 const handleResponse = (response: any) => {
   const { existingSchedule, newSchedule } = response.data.user;
   if (existingSchedule) {
-    // Usuario ya tiene una entrada para el día actual
-    // console.log("Detalles del usuario:", user);
-    // console.log("Detalles del horario existente:", existingSchedule);
-    // Mostrar detalles en tu interfaz de usuario
+    console.log("¡Registro de salida exitoso!");
   } else {
-    // // Nuevo horario creado
-    // console.log("Detalles del usuario:", user);
-    // console.log("Detalles del nuevo horario:", newSchedule);
-    // Mostrar detalles en tu interfaz de usuario
+    console.log("¡Registro de entrada exitoso!");
   }
 };
 
@@ -35,11 +26,12 @@ const Qrcodex = ({
   isChangeText,
   setIsChangeText,
 }: QrcodexProps) => {
-  const [scanResult, setScanResult] = useState(null);
+  const [scanResult, setScanResult] = useState({
+    delay: 300,
+    result: "No result",
+  });
   const [loadToaster, setLoadToaster] = useState(false);
 
- 
-  
   const handleScan = async (data: any) => {
     if (data) {
       axios
@@ -50,15 +42,11 @@ const Qrcodex = ({
             (response.data.existingSchedule || response.data.newSchedule)
           ) {
             handleResponse(response);
-            toast.success("¡Registro exitoso!", {
-              id: "success",
-              duration: 2000,
-            });
           }
         })
         .catch((error) => toast.error(error.response.data));
 
-      setScanResult(data);
+      setScanResult({ result: data.text, delay: 300 });
       setIsChangeText(true);
       toggleScanner();
     }
@@ -68,14 +56,13 @@ const Qrcodex = ({
     console.error(err);
   };
 
-  // Verificar si userId es null antes de renderizar el componente
   if (userId === null) {
     return null;
   }
 
   return (
     <>
-      {typeof window !== 'undefined' && (
+      {typeof window !== "undefined" && (
         <QrReader
           delay={100}
           onError={handleError}

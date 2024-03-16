@@ -18,6 +18,7 @@ import {
   Tooltip,
   useDisclosure,
   Modal,
+  
   ModalContent,
   ModalHeader,
   ModalBody,
@@ -131,7 +132,7 @@ const listId = () => {
                       new Date(a.entryTime).getTime()
                   )
                   .map((schedule: any, index: number) => (
-                    <div key={index} className="w-22">
+                    <div key={index} className="w-6">
                       <div className="flex flex-col">
                         <p className="text-sm font-semibold text-white">
                           Entrada:{" "}
@@ -159,7 +160,7 @@ const listId = () => {
                 {userDetails?.data?.schedule?.map(
                   (schedule: any, index: number) => (
                     <>
-                      <div className="relative mt-4 flex" key={index}>
+                      <div className="relative mt-4 flex w-10" key={index}>
                         <Tooltip content="Editar horarios">
                           <span className="text-sm text-default-400 cursor-pointer active:opacity-50 ml-4">
                             <FaRegEdit
