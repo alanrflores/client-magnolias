@@ -47,7 +47,7 @@ export default function ModalRegister({
   userId,
   setUserId,
 }: ModalRegisterProps) {
-  const roles = ["ADMIN", "EMPLEADO"];
+  const roles = ["EMPLEADO"];
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isRegistrationMode, setIsRegistrationMode] = useState<boolean>(true);
 
@@ -56,7 +56,7 @@ export default function ModalRegister({
     email: "",
     username: "",
     password: "",
-    role: "EMPLEADO",
+    role: "",
   });
   const [touched, setTouched] = useState(false);
   const isValid = values.role == "";
@@ -91,7 +91,7 @@ export default function ModalRegister({
         }),
         {
           loading: "Guardando...",
-          success: <b> 'Usuario creado!'</b>,
+          success: <b> 'Usuario creado, sera redirigido!'</b>,
           error: <b>Lo siento, intente nuevamente.</b>,
         }
       );
@@ -109,6 +109,10 @@ export default function ModalRegister({
       });
 
       refetch();
+
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
     } catch (error) {
       // Manejar errores si es necesario
       console.error("Error mientras se intento guardar el usuario:", error);
@@ -153,8 +157,8 @@ export default function ModalRegister({
                   endContent={
                     <MdDriveFileRenameOutline className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
-                  label="Name"
-                  placeholder="Enter your name"
+                  label="Nombre"
+                  placeholder="Escriba su nombre"
                   value={values.name}
                   onChange={(e) =>
                     setValues({ ...values, name: e.target.value })
@@ -168,8 +172,8 @@ export default function ModalRegister({
                   endContent={
                     <MdDriveFileRenameOutline className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
-                  label="username"
-                  placeholder="Enter your username"
+                  label="Nombre de usuario"
+                  placeholder="Escriba su nombre de usuario"
                   value={values.username}
                   onChange={(e) =>
                     setValues({ ...values, username: e.target.value })
@@ -184,7 +188,7 @@ export default function ModalRegister({
                     <MdEmail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Email"
-                  placeholder="Enter your email"
+                  placeholder="Esribe tu email"
                   value={values.email}
                   onChange={(e) =>
                     setValues({ ...values, email: e.target.value })
@@ -207,8 +211,8 @@ export default function ModalRegister({
                       )}
                     </button>
                   }
-                  label="Password"
-                  placeholder="Enter your password"
+                  label="Contraseña"
+                  placeholder="Escriba su contraseña"
                   type={isVisible ? "text" : "password"}
                   value={values.password}
                   onChange={(e) =>
@@ -216,7 +220,7 @@ export default function ModalRegister({
                   }
                   className="text-black bg-white border border-gray-100 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700"
                 />
-                {/* <div className="w-full flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4">
                   <div className="flex items-center gap-2">
                      <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                       <Select
@@ -240,7 +244,7 @@ export default function ModalRegister({
                       </Select>
                     </div> 
                   </div>
-                </div> */}
+                </div>
 
                 <div className="flex py-2 px-1 justify-between">
                   <Checkbox
@@ -252,7 +256,7 @@ export default function ModalRegister({
                   </Checkbox>
 
                   <Link color="primary" href={"/request"} size="sm">
-                    Forgot password?
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
               </ModalBody>

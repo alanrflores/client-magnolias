@@ -5,7 +5,7 @@ import useLocalStorage from "../services/hooks/useLocalStorage";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { getUserById } from "@/services/queries/Queries";
-import { is } from "date-fns/locale";
+
 
 const code = () => {
   const router = useRouter();
@@ -49,15 +49,13 @@ const code = () => {
           <h1 className="text-xl text-center font-bold text-white">Solo el administrador puede ver este contenido</h1>
         </div>
       ) : (
-        <div>
-          <h1 className="text-xl text-center font-bold text-white">
-            Código QR ADMIN
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-md rounded-md bg-white text-red-600 font-semibold p-2">
+            Escanea el QR para registrar tu asistencia (USUARIOS REGISTRADOS)
           </h1>
-          <p className="text-md text-white text-center">
-            Escanea este código para marcar tu asistencia
-          </p>
-          <div className="mt-8 ml-16">
-            <QRCode size={180} value={baseUrl} />
+         
+          <div className="mt-28">
+            <QRCode size={230} value={baseUrl} />
           </div>
         </div>
       )}

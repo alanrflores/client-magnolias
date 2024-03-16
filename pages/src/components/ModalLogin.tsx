@@ -117,7 +117,7 @@ const ModalLogin = ({
                       <MdEmail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
                     label="Email"
-                    placeholder="Enter your email"
+                    placeholder="Escribe tu email"
                     value={values.email}
                     onChange={(e) =>
                       setValues({ ...values, email: e.target.value })
@@ -141,8 +141,8 @@ const ModalLogin = ({
                         )}
                       </button>
                     }
-                    label="Password"
-                    placeholder="Enter your password"
+                    label="Contraseña"
+                    placeholder="Escribe tu contraseña"
                     type={isVisible ? "text" : "password"}
                     value={values.password}
                     onChange={(e) =>

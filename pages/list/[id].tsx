@@ -94,15 +94,15 @@ const listId = () => {
     <>
       <div className="flex w-full flex-col px-2 py-2 bg-gray-800 h-screen">
         <div className="flex flex row justify-between px-2 mb-2">
-          <h1 className="text-lg font-semibold mb-4 text-white">
+          <h1 className="text-sm font-semibold mb-4 text-white">
             Detalles del usuario
           </h1>
           <button
-            className="inline-flex h-7 w-auto px-1 py-0.5 font-sans
+            className="inline-flex h-7 w-auto px-1.5 py-0.5 font-sans text-xs
             animate-background-shine items-center 
             justify-center 
             rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] 
-             text-sm font-medium text-slate-200 transition-colors focus:outline-none focus:ring-2 
+            font-medium text-slate-200 transition-colors focus:outline-none focus:ring-2 
             focus:ring-slate-400 
             focus:ring-offset-2 focus:ring-offset-slate-50 hover:scale-105
              hover:shadow-xl hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] 
@@ -120,7 +120,7 @@ const listId = () => {
           </TableHeader>
           <TableBody className="flex justify-center items-center">
             <TableRow key="1">
-              <TableCell className="align-top text-white">
+              <TableCell className="align-top text-white font-semibold text-sm">
                 {userDetails?.data?.email}
               </TableCell>
               <TableCell className="">
@@ -161,17 +161,17 @@ const listId = () => {
                     <>
                       <div className="relative mt-4 flex" key={index}>
                         <Tooltip content="Editar horarios">
-                          <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                          <span className="text-sm text-default-400 cursor-pointer active:opacity-50 ml-4">
                             <FaRegEdit
-                              size={18}
+                              size={16}
                               onClick={() => handleOpenUpdate(schedule._id)}
                             />
                           </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Eliminar horarios">
-                          <span className="text-lg text-danger cursor-pointer active:opacity-50 mr-10">
+                          <span className="text-sm text-danger cursor-pointer active:opacity-50 mr-10">
                             <RiDeleteBin6Line
-                              size={18}
+                              size={16}
                               onClick={() => handleOpenDelete(schedule._id)}
                             />
                           </span>

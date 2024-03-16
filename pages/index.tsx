@@ -117,47 +117,37 @@ export default function Home() {
               <div className="flex flex-col justify-center items-center bg-gray-800 px-1 py-1 h-screen">
                 <div className="mt-10 flex justify-center flex-col">
                   <strong
-                    className="text-sm flex flex-row text-black font-sans bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 p-4"
+                    className="text-black bg-white font-semibold bg-gray-800 p-2 rounded-md text-center w-60 hover:bg-gray-700 hover:text-white transition-all duration-300 ease-in-out"
                     role="alert"
                   >
                     {!isChangeText ? (
-                      <>
-                        Ingresar horario
+                      <div className="text-sm flex flex-row justify-evenly items-center">
+                        <button
+                        className=""
+                        onClick={toggleScanner}
+                      >
                         <span className="ml-1">
-                          <IoMdQrScanner color="red" size="20px" />
+                        Ingresar horario  
                         </span>
-                      </>
+
+                      </button>
+                        <IoMdQrScanner color="red" size="18px" />
+                      </div>
                     ) : (
-                      <>
+                      <div className=" text-sm flex flex-row justify-evenly items-center">
                         Se registro su horario, no te olvides de cerrar sesión
                         <span className="ml-1">
-                          <IoCheckmarkDoneSharp color="green" size="20px" />
+                          <IoCheckmarkDoneSharp color="green" size="18px" />
                         </span>
-                      </>
+                      </div>
                     )}
                   </strong>
                   <br />
                   <br />
-                  {!isChangeText && (
-                    <div className="text-center">
-                      {" "}
-                      <button
-                        className="p-2 bg-white rounded-lg shadow-lg hover:bg-gray-200 w-18"
-                        onClick={toggleScanner}
-                      >
-                        <p className="text-bold text-black font-sans flex flex-row">
-                          Escanear{" "}
-                          <span className="ml-2">
-                            <MdQrCodeScanner size="24px" />
-                          </span>
-                        </p>
-                      </button>
-                    </div>
-                  )}
                 </div>
 
                 {isScannerVisible && !isChangeText && (
-                  <div className="mt-20">
+                  <div className="mt-10">
                     <Qrcodex
                       userId={userId}
                       toggleScanner={toggleScanner}
@@ -171,12 +161,12 @@ export default function Home() {
           ) : (
             <>
               <div className="flex flex justify-center items-center bg-gray-800 flex-col h-screen">
-                <h1 className="mt-10 font-semibold text-white">
+                <h1 className="mt-10 font-semibold text-white text-sm">
                   Lista de usuarios con sus horarios
                 </h1>
                 <div>
                   <button
-                    className="mt-3 inline-flex h-12 font-sans
+                    className="mt-3 inline-flex h-12 font-sans text-sm
               animate-background-shine items-center
               justify-center
               rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%]
@@ -186,7 +176,7 @@ export default function Home() {
                     Obtener QR
                   </button>
                 </div>
-                <div className="mt-1 text-black">
+                <div className="mt-1 text-black text-sm">
                   <Calendar
                     localizer={localizer}
                     startAccessor="start"
@@ -203,6 +193,7 @@ export default function Home() {
                       padding: 6,
                       backgroundColor: "white",
                       boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                      fontSize: 12,
                     }}
                     views={["month", "week", "day"]}
                     view="month"
@@ -226,18 +217,18 @@ export default function Home() {
                     <>
                       <ScrollShadow>
                         <ModalHeader className="flex flex-col gap-1">
-                          <h2 className="text-semibold text-white">Lista</h2>
+                          <h2 className="text-semibold text-white text-sm">Lista</h2>
                         </ModalHeader>
                         <ModalBody>
                           <FullCard users={isNotAdmin} />
                         </ModalBody>
                         <ModalFooter>
                           <Button
-                            className="bg-red-600"
+                            className="bg-red-600 text-sm"
                             variant="light"
                             onPress={onClose}
                           >
-                            <span className="text-white font-semibpñd">
+                            <span className="text-white font-semibold text-sm">
                               Cerrar
                             </span>
                           </Button>
