@@ -44,22 +44,15 @@ const code = () => {
     );
   }
 
-  const isValue = (base: string, val:string) => {
-    // Verificar si el usuario está registrado y no es administrador
-    if (userById && userId && !isNotAdmin) {
-       return base; // Retorna baseUrl si el usuario está registrado y no es administrador
-    } 
-    // Verificar si el usuario es administrador
-    else if (userById && userId && isNotAdmin) {
-       return val; // Retorna value si el usuario es administrador
-    } 
-    // Caso por defecto, si el usuario no está registrado o no se cumplen las condiciones anteriores
-    else {
-       return val; // Retorna value si no es un usuario registrado
+  const isValue = (base: string, val: string) => {
+    if (userById) {
+      return base;
+    } else {
+      return val;
     }
-   };
-   
-   const urlToDisplay = isValue(baseUrl, value);
+  };
+
+  const urlToDisplay = isValue(baseUrl, value);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-800">
