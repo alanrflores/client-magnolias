@@ -142,7 +142,7 @@ export default function Home() {
                       </div>
                     ) : (
                       <div className=" text-sm flex flex-row justify-evenly items-center">
-                        Se registro su horario, no te olvides de cerrar sesión
+                        Se registro su horario.
                         <span className="ml-1">
                           <IoCheckmarkDoneSharp color="green" size="18px" />
                         </span>
