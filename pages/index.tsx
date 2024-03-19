@@ -70,7 +70,7 @@ export default function Home() {
           key={"primary"}
           color={
             fetchUser && fetchUser?.data?.length > 0 && userRoleIsNotAdmin
-              ? "success"
+              ? "primary"
               : "warning"
           }
           content={props.event.title}

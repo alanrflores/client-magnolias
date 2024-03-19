@@ -7,18 +7,10 @@ import {
   updateScheduleUser,
 } from "../../services/queries/Queries";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Button,
-  Divider,
   Tooltip,
   useDisclosure,
   Modal,
-  
   ModalContent,
   ModalHeader,
   ModalBody,
@@ -29,6 +21,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Toaster } from "react-hot-toast";
 import FormUpdate from "../src/components/FormUpdate";
+
 
 const listId = () => {
   const {
@@ -51,16 +44,7 @@ const listId = () => {
     ["user", userId],
     getUserById
   );
-
-  const isNotAdmin =
-    userDetails && userDetails.data && userDetails.data.role === "ADMIN";
-
-  useEffect(() => {
-    if (!userId) {
-      router.push("/register");
-    }
-  }, [userId]);
-
+   
   const deleteMutation = useMutation(deleteScheduleUser, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
@@ -90,10 +74,10 @@ const listId = () => {
     onOpenChangeUpdate();
   };
 
-  // console.log(userDetails);
+
   return (
     <>
-      <div className="flex w-full flex-col px-2 py-2 bg-gray-800 h-screen">
+      <div className="flex w-full flex-col px-2 py-2 bg-gray-800 h-lvh">
         <div className="flex flex row justify-between px-2 mb-2">
           <h1 className="text-sm font-semibold mb-4 text-white">
             Detalles del usuario
@@ -113,80 +97,121 @@ const listId = () => {
             Volver
           </button>
         </div>
-        <Table removeWrapper aria-label="collection table">
-          <TableHeader>
-            <TableColumn>EMAIL</TableColumn>
-            <TableColumn>HORARIOS</TableColumn>
-            <TableColumn>ACCION</TableColumn>
-          </TableHeader>
-          <TableBody className="flex justify-center items-center">
-            <TableRow key="1">
-              <TableCell className="align-top text-white font-semibold text-sm">
-                {userDetails?.data?.email}
-              </TableCell>
-              <TableCell className="">
-                {userDetails?.data?.schedule
-                  ?.sort(
-                    (a: any, b: any) =>
-                      new Date(b.entryTime).getTime() -
-                      new Date(a.entryTime).getTime()
-                  )
-                  .map((schedule: any, index: number) => (
-                    <div key={index} className="w-6">
-                      <div className="flex flex-col">
-                        <p className="text-sm font-semibold text-white">
-                          Entrada:{" "}
-                          <Moment format="DD/MM/YYYY HH:mm:ss" locale="es">
-                            {schedule.entryTime}
-                          </Moment>{" "}
-                        </p>
-                        <p className="text-sm font-semibold text-white">
-                          Salida:{" "}
-                          {schedule.exitTime ? (
-                            <Moment format="DD/MM/YYYY HH:mm:ss" locale="es">
-                              {schedule.exitTime}
-                            </Moment>
-                          ) : (
-                            <span className="text-red-400">No hay horario</span>
-                          )}
-                        </p>
-                      </div>
-                      <Divider className="w-32" />
-                    </div>
-                  ))}
-              </TableCell>
-
-              <TableCell className="align-top">
-                {userDetails?.data?.schedule?.map(
-                  (schedule: any, index: number) => (
-                    <>
-                      <div className="relative mt-4 flex w-10" key={index}>
-                        <Tooltip content="Editar horarios">
-                          <span className="text-sm text-default-400 cursor-pointer active:opacity-50 ml-4">
-                            <FaRegEdit
-                              size={16}
-                              onClick={() => handleOpenUpdate(schedule._id)}
-                            />
-                          </span>
-                        </Tooltip>
-                        <Tooltip color="danger" content="Eliminar horarios">
-                          <span className="text-sm text-danger cursor-pointer active:opacity-50 mr-10">
-                            <RiDeleteBin6Line
-                              size={16}
-                              onClick={() => handleOpenDelete(schedule._id)}
-                            />
-                          </span>
-                        </Tooltip>
-                      </div>
-                      <Divider className="w-10" />
-                    </>
-                  )
-                )}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        <h1 className="text-sm px-2 py-2 font-semibold text-white">
+          Nombre: {userDetails?.data?.name}
+        </h1>
+        <h1 className="text-sm px-2 py-2 font-semibold text-white">
+          Email: {userDetails?.data?.email}
+        </h1>
+       
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+          gridTemplateRows: "repeat(auto-fill, minmax(150px, 1fr))",
+          gap: "10px",
+          overflowY: "auto",
+        }}
+         
+        >
+          {userDetails?.data?.schedule
+            ?.sort(
+              (a: any, b: any) =>
+                new Date(b.entryTime).getTime() -
+                new Date(a.entryTime).getTime()
+            )
+            .map((schedule: any, index: number) => (
+              <div
+                key={index}
+                style={{
+                  width: "320px",
+                  height: "150px",
+                  background: "linear-gradient(to right, rgb(20, 30, 48)",
+                  borderRadius: "15px",
+                  boxShadow: " 0 0 10px 0 rgb(0 0 0 / 20%)",
+                  display: "flex",
+                  color: "white",
+                  justifyContent: "center",
+                  position: "relative",
+                  flexDirection: "column",
+                  backgroundColor: "linear-gradient(to right, rgb(20, 30, 48)",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease-in-out",
+                  overflow: "hidden",
+                  margin: "5px",
+                }}
+              >
+                <div className="flex flex-col mx-auto">
+                  <p className="text-sm font-semibold text-white">
+                    Entrada:{" "}
+                    <span
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "0px",
+                        marginLeft: "15px",
+                        fontWeight: 600,
+                        fontFamily: "Gill Sans",
+                      }}
+                    >
+                      <Moment format="DD/MM/YYYY HH:mm:ss" locale="es">
+                        {schedule.entryTime}
+                      </Moment>{" "}
+                    </span>
+                  </p>
+                  <p className="text-sm font-semibold text-white py-2">
+                    Salida:{" "}
+                    {schedule.exitTime ? (
+                      <span
+                        style={{
+                          fontSize: "16px",
+                          marginTop: "0px",
+                          marginLeft: "25px",
+                          fontWeight: 600,
+                          fontFamily: "Gill Sans",
+                        }}
+                      >
+                        <Moment format="DD/MM/YYYY HH:mm:ss" locale="es">
+                          {schedule.exitTime}
+                        </Moment>
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: "16px",
+                          marginTop: "0px",
+                          marginLeft: "25px",
+                          fontWeight: 600,
+                          fontFamily: "Gill Sans",
+                          color: "red",
+                        }}
+                      >
+                        No hay horario
+                      </span>
+                    )}
+                  </p>
+                  <div className="flex justify-between w-full mt-4" key={index}>
+                    <Tooltip content="Editar horarios">
+                      <span className="text-sm text-default-400 cursor-pointer active:opacity-50">
+                        <FaRegEdit
+                          size={20}
+                          onClick={() => handleOpenUpdate(schedule._id)}
+                        />
+                      </span>
+                    </Tooltip>
+                    <Tooltip color="danger" content="Eliminar horarios">
+                      <span className="text-sm text-danger cursor-pointer active:opacity-50">
+                        <RiDeleteBin6Line
+                          size={20}
+                          onClick={() => handleOpenDelete(schedule._id)}
+                        />
+                      </span>
+                    </Tooltip>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
+
       <Modal
         placement="center"
         backdrop="opaque"
